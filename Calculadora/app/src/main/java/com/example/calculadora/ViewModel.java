@@ -2,6 +2,7 @@ package com.example.calculadora;
 
 public class ViewModel {
     private ICalculadora calculadora = new Calculadora();
+    private CalculadoraBuilder builder = new CalculadoraBuilder();
     ViewModel() {
 
     }
