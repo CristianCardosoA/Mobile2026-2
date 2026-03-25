@@ -3,9 +3,7 @@ package com.example.calculadora;
 public class ViewModel {
     private ICalculadora calculadora = new Calculadora();
     private CalculadoraBuilder builder = new CalculadoraBuilder();
-    ViewModel() {
-
-    }
+    ViewModel() {}
     Double makeOperation(Operacion [] operations) {
         Double cache = 0.0;
         for (Operacion operation: operations) {
