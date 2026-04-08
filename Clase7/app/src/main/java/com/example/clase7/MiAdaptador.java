@@ -5,11 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
 
-    private String[] localDataSet;
+    private ArrayList<String> localDataSet;
 
-    public MiAdaptador(String[] dataSet) {
+    public MiAdaptador(ArrayList<String> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -29,12 +31,16 @@ public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet[position]);
+        viewHolder.getTextView().setText(localDataSet.get(position));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
+    }
+
+    public void addElemento(String newElement) {
+        localDataSet.add(newElement);
     }
 }

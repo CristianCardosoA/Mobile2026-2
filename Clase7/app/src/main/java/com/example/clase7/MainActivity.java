@@ -1,6 +1,10 @@
 package com.example.clase7;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +14,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-    RecyclerView.Adapter adaptador;
+    MiAdaptador adaptador;
+
+    Button miButton;
+
+    EditText miInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +37,29 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        String [] misDatos = new String[] {
-                "Mario",
-                "Luigi",
-                "Peach",
-                "Browser"
-        };
+        MiCliente miCliente = new MiCliente();
 
-        adaptador = new MiAdaptador(misDatos);
+
+        AsyncTask.execute(() -> {
+            ArrayList<String> misDatos = miCliente.getElements();
+            runOnUiThread(() -> {
+                adaptador = new MiAdaptador(misDatos);
+                recyclerView.setAdapter(adaptador);
+            });
+        });
+
+        miButton = findViewById(R.id.button);
+        miInput = findViewById(R.id.textInputEditText);
 
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adaptador);
+
+        miButton.setOnClickListener(v -> {
+            // Obtener elemento
+            if (!miInput.getText().toString().isBlank()){
+                String newElemento = miInput.getText().toString();
+                adaptador.addElemento(newElemento);
+            }
+        });
     }
 }
