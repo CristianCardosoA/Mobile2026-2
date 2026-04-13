@@ -17,13 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
-
     MiAdaptador adaptador;
-
     Button miButton;
-
     EditText miInput;
 
     @Override
@@ -36,24 +32,20 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         MiCliente miCliente = new MiCliente();
-
-
         AsyncTask.execute(() -> {
-            ArrayList<String> misDatos = miCliente.getElements();
+            ArrayList<Personaje> misDatos = miCliente.getElements();
             runOnUiThread(() -> {
                 adaptador = new MiAdaptador(misDatos);
                 recyclerView.setAdapter(adaptador);
             });
         });
-
         miButton = findViewById(R.id.button);
         miInput = findViewById(R.id.textInputEditText);
-
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        /*
         miButton.setOnClickListener(v -> {
             // Obtener elemento
             if (!miInput.getText().toString().isBlank()){
@@ -61,5 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 adaptador.addElemento(newElemento);
             }
         });
+        */
     }
 }

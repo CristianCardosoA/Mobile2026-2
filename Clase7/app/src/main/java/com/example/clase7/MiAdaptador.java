@@ -5,13 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
 
-    private ArrayList<String> localDataSet;
+    private ArrayList<Personaje> localDataSet;
 
-    public MiAdaptador(ArrayList<String> dataSet) {
+    public MiAdaptador(ArrayList<Personaje> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -28,10 +30,20 @@ public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MiViewHolder viewHolder, final int position) {
-
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet.get(position));
+        Personaje personaje = localDataSet.get(position);
+        // Aqui el set de datos
+        String name = personaje.getName();
+        viewHolder.getTextView().setText(name);
+
+        String url = personaje.getPhoto();
+        // Aqui la imagen
+        Glide
+                .with(viewHolder.itemView.getContext())
+                .load(url)
+                .centerCrop()
+                .into(viewHolder.getImageView());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -40,7 +52,7 @@ public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
         return localDataSet.size();
     }
 
-    public void addElemento(String newElement) {
+    public void addElemento(Personaje newElement) {
         localDataSet.add(newElement);
     }
 }
