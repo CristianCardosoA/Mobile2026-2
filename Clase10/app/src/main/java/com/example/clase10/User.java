@@ -14,4 +14,9 @@ public class User {
 
     @ColumnInfo(name = "last_name")
     public String lastName;
+
+    public User(String lastName, String firstName) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
 }
